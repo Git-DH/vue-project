@@ -11,8 +11,9 @@ export default {
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+      <div class="modal-wrapper" @click="$emit('close')">
+        <div class="modal-container" @click.stop="">
+        <!-- @click.stop="": 버블링 중단 -->
           <div class="modal-header">
             <slot name="header">{{ header }}</slot>
           </div>
@@ -23,7 +24,12 @@ export default {
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">OK</button>
+              <button class="modal-default-button" 
+              @click="$emit('close')">OK</button>
+              <!-- 
+                @click="$emit('close')" 이벤트 주는 방식
+                @ 와 $emit이 필요하다.
+              -->
             </slot>
           </div>
         </div>

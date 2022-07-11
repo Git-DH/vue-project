@@ -20,6 +20,8 @@ export default {
         const value = this.newTodoItem;
         // emit = 이벤트 발생
         this.$emit('childAddTodo', value);
+      } else {
+        this.$emit('modalOpen');
       }
       this.newTodoItem = '';
     },

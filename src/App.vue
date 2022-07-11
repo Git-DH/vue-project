@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput @childAddTodo="addTodo"></TodoInput>
+    <TodoInput @childAddTodo="addTodo" @modalOpen="openModal"></TodoInput>
     <TodoList :propsItems="todoItems" @childRemoveTodo="removeTodo"></TodoList>
     <TodoFooter @childRemoveAll="removeAllTodo"></TodoFooter>
   </div>
-  <AlertModal :show="modalShow" header="알림창" body="내용을 입력해 주세요."></AlertModal>
+  <AlertModal :show="modalShow" header="알림창" body="내용을 입력해 주세요." @close="closeModal"></AlertModal>
 </template>
 
 <script>
@@ -20,6 +20,7 @@ export default {
     return {
       todoItems: [],
       cnt: 0,
+      modalShow: false
     };
   },
   methods: {
@@ -33,6 +34,17 @@ export default {
         key: this.cnt++,
         value: todoItem,
       });
+    },
+    openModal() {
+      if(this.modalShow === true) {
+        this.modalShow = false;
+      } else {
+        this.modalShow = true;
+      }
+      
+    },
+    closeModal() {
+      this.modalShow = false;
     },
     removeTodo(key) {
       // this.todoItems.splice(index, 1);
